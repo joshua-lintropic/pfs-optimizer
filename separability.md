@@ -11,7 +11,7 @@ $$
 which is an $N=10,000$-dimensional nonconvex optimization problem, instead we first formulate the Lagrangian
 
 $$
-\mathcal{L}(\theta_{i}, \lambda) = -\sum_{i=1}^{N} \hat{u}_{i} {L - l \choose R_{i}} \theta_{i}^{R_{i}}(1 - \theta_{i})^{L - l - R_{i}} + \lambda \left( \sum_{i=1}^{N} \theta_{i} - K \right) 
+L(\theta_{i}, \lambda) = -\sum_{i=1}^{N} \hat{u}_{i} {L - l \choose R_{i}} \theta_{i}^{R_{i}}(1 - \theta_{i})^{L - l - R_{i}} + \lambda \left( \sum_{i=1}^{N} \theta_{i} - K \right) 
 $$
 
 Then we solve the problem 
