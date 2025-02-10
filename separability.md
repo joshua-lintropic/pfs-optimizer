@@ -1,12 +1,10 @@
 # Key Idea
 The point is that instead of looking at 
 
-$$
-\begin{aligned}
+$$\begin{aligned}
 \text{minimize} \quad & -\sum_{i=1}^{N} \hat{u}_{i} {L - l \choose R_{i}} \theta_{i}^{R_{i}}(1 - \theta_{i})^{L - l - R_{i}} \\
 \text{subject to} \quad & 0 \leq \theta_{i} \leq 1, \quad \sum_{i=1}^{N} \theta_{i} = K
-\end{aligned}
-$$
+\end{aligned}$$
 
 which is an $N=10,000$-dimensional nonconvex optimization problem, instead we first formulate the Lagrangian
 
