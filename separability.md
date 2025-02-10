@@ -1,3 +1,4 @@
+# Key Idea
 The point is that instead of looking at 
 
 $$
