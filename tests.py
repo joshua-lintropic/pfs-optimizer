@@ -47,7 +47,8 @@ def power_law():
     scale = 100
     u_max = np.random.pareto(10, N) * scale + 1
     noise = np.random.normal(loc=1.0, scale=0.05, size=N)
-    T_target = (L / u_max) * noise
+    T_target = u_max / np.percentile(u_max, 99) * L * noise 
+    # TODO: skew the distribution
     for i in range(N):
         T_target[i] = max(0, min(L, int(T_target[i])))
     return N, K, L, T_e, u_max, T_target
