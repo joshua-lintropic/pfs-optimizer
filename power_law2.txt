@@ -1,0 +1,43 @@
+### Successfully generated input data. ###
+
+=== EXPOSURE 1: PROCESSING ===
+Found optimal Lagrange multiplier: 16.60933032978614
+100 / 100 fibers used
+
+=== EXPOSURE 2: PROCESSING ===
+Found optimal Lagrange multiplier: 16.57688685559912
+100 / 100 fibers used
+
+=== EXPOSURE 3: PROCESSING ===
+Found optimal Lagrange multiplier: 16.502304051777806
+100 / 100 fibers used
+
+=== EXPOSURE 4: PROCESSING ===
+Found optimal Lagrange multiplier: 16.967042242372695
+100 / 100 fibers used
+
+=== EXPOSURE 5: PROCESSING ===
+Found optimal Lagrange multiplier: 16.78919161302202
+100 / 100 fibers used
+
+=== EXPOSURE 6: PROCESSING ===
+Found optimal Lagrange multiplier: 19.356527202450692
+100 / 100 fibers used
+
+=== EXPOSURE 7: PROCESSING ===
+Found optimal Lagrange multiplier: 23.033030795364546
+100 / 100 fibers used
+
+=== EXPOSURE 8: PROCESSING ===
+Found optimal Lagrange multiplier: 21.23476992933393
+100 / 100 fibers used
+
+=== EXPOSURE 9: PROCESSING ===
+Found optimal Lagrange multiplier: 16.301171133866923
+100 / 100 fibers used
+
+=== EXPOSURE 10: PROCESSING ===
+Found optimal Lagrange multiplier: 0
+100 / 100 fibers used
+
+Sharp Utility: 5876.91140849015

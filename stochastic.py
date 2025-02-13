@@ -73,34 +73,43 @@ def simulate(data):
             mask = (-allocations).argsort()[:K]
         else:
             alive = np.where(R == 1)[0]
-            greedy = sorted(u_max)
+            greedy = np.argsort(u_max)[::-1]
             count = 0
-            for i in range(N):
-                if i not in alive: continue
-                mask = np.append(mask, i)
+            for idx in greedy:
+                if idx not in alive: continue
+                mask = np.append(mask, idx)
                 count += 1
                 if count == K: break
 
         # Allocate the next available fiber to each selected galaxy
+        u_selected = []
         fiber = 0
         for i in range(N):
             t[i, l] = 0
             if i in mask: 
                 t[i, l] = 1
                 fiber += 1
+                u_selected += [u_max[i]]
         print(f"{fiber} / {K} fibers used")
+        plt.hist(u_selected, bins=10, density=True)
+        plt.savefig(f"hist{l}.png")
         # np.save('allocations.npy', t)
 
         print()
 
     # Print attained sharp utility (all-or-nothing)
     u_sharp = 0
+    u_attained = []
     for i in range(N):
         if np.sum(t[i, :]) == T_target[i]:
             u_sharp += np.sum(u_max[i])
+            u_attained += [u_max[i]]
         elif np.sum(t[i, :]) > T_target[i]:
             printf(f"wasteful on target {i}")
     print(f"Sharp Utility: {u_sharp}")
+    plt.hist(u_attained, bins=10, density=True)
+    print('max attained u_max', max(u_attained))
+    plt.savefig('hist.png')
 
 def main():
     simulate(data=power_law)
