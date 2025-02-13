@@ -10,7 +10,7 @@ def normal():
     L = 10
     u_max = np.random.normal(loc=100, scale=10, size=(N,)) # max scientific utility
     T_target = np.random.normal(loc=L/2, scale=L/5, size=(N,)) # target time to reach max utility
-    T_e = 1 # time per exposure
+    T_exp = 1 # time per exposure
 
     fig, ax = plt.subplots(ncols=2)
     fig.set_figwidth(20)
@@ -25,7 +25,7 @@ def normal():
     ax[1].set_ylabel('Target Time to Reach Max Utility (hours)')
     fig.savefig('data.png')
 
-    return N, K, L, T_e, u_max, T_target, loc
+    return N, K, L, T_exp, u_max, T_target, loc
 
 def edge1():
     loc = 'tests/edge1'
@@ -35,10 +35,10 @@ def edge1():
     N = N1 + N2
     K = 100
     L = 10
-    T_e = 1
+    T_exp = 1
     u_max = np.array([10 for _ in range(N1)] + [0.5 for _ in range(N2)])
     T_target = np.array([10 for _ in range(N1)] + [1 for _ in range(N2)])
-    return N, K, L, T_e, u_max, T_target, loc
+    return N, K, L, T_exp, u_max, T_target, loc
 
 def power_law():
     loc = 'tests/power_law'
@@ -47,7 +47,7 @@ def power_law():
     N = 1000
     K = 100
     L = 10
-    T_e = 1
+    T_exp = 1
 
     # sample from pareto distribution
     scale = 100
@@ -57,7 +57,7 @@ def power_law():
 
     for i in range(N):
         T_target[i] = max(0, min(L, int(T_target[i])))
-    return N, K, L, T_e, u_max, T_target
+    return N, K, L, T_exp, u_max, T_target, loc
 
 if __name__ == '__main__':
     # _, _, _, _, u_max, T_target = edge1()
