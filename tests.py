@@ -3,6 +3,8 @@ import matplotlib.pyplot as plt
 np.random.seed(0)
 
 def normal():
+    loc = 'tests/normal/'
+
     N = 10000
     K = 2400
     L = 10
@@ -12,20 +14,22 @@ def normal():
 
     fig, ax = plt.subplots(ncols=2)
     fig.set_figwidth(20)
-    fig.suptitle("Max Observation Utility & Target Time")
+    fig.suptitle('Max Observation Utility & Target Time')
 
     ax[0].plot(u_max, color='blue')
-    ax[0].set_xlabel("Galaxy Index")
-    ax[0].set_ylabel("Maximum Observation Utility")
+    ax[0].set_xlabel('Galaxy Index')
+    ax[0].set_ylabel('Maximum Observation Utility')
 
     ax[1].plot(T_target, color='green')
-    ax[1].set_xlabel("Galaxy Index")
-    ax[1].set_ylabel("Target Time to Reach Max Utility (hours)")
-    fig.savefig("data.png")
+    ax[1].set_xlabel('Galaxy Index')
+    ax[1].set_ylabel('Target Time to Reach Max Utility (hours)')
+    fig.savefig('data.png')
 
-    return N, K, L, T_e, u_max, T_target
+    return N, K, L, T_e, u_max, T_target, loc
 
 def edge1():
+    loc = 'tests/edge1'
+
     N1 = 60
     N2 = 1000
     N = N1 + N2
@@ -34,9 +38,11 @@ def edge1():
     T_e = 1
     u_max = np.array([10 for _ in range(N1)] + [0.5 for _ in range(N2)])
     T_target = np.array([10 for _ in range(N1)] + [1 for _ in range(N2)])
-    return N, K, L, T_e, u_max, T_target
+    return N, K, L, T_e, u_max, T_target, loc
 
 def power_law():
+    loc = 'tests/power_law'
+
     # parameters
     N = 1000
     K = 100
@@ -48,12 +54,12 @@ def power_law():
     u_max = np.random.pareto(10, N) * scale + 1
     noise = np.random.normal(loc=1.0, scale=0.05, size=N)
     T_target = u_max / np.percentile(u_max, 99) * L * noise 
-    # TODO: skew the distribution
+
     for i in range(N):
         T_target[i] = max(0, min(L, int(T_target[i])))
     return N, K, L, T_e, u_max, T_target
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     # _, _, _, _, u_max, T_target = edge1()
     # print(u_max[:61])
     # print(T_target[:61])

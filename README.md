@@ -1,3 +1,10 @@
+# TODO
+fixed bins
+target times, u_max at every exposure
+sum of total attained utilities as function of exposure
+double total time on toy case (or 25 exposures), double Ns
+make longest runs < total time
+
 # pfs-optimizer
 
 (Idea is from Professor Peter Melchior)
