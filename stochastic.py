@@ -5,7 +5,7 @@ import time
 import sys
 
 from helpers import bracket
-from tests import normal, edge1
+from tests import *
 
 def simulate(data):
     # Generate input data
@@ -58,9 +58,12 @@ def simulate(data):
             if not result.converged:
                 raise RuntimeError(f"Brentq did not converge.")
         except ValueError:
-            result = sp.optimize.minimize(lambda y : F(y)**2, 0.8, method='BFGS')
-            ystar = result.x[0]
-            if not result.success: raise RuntimeError("BFGS did nto converge.")
+            if S != 1:
+                result = sp.optimize.minimize(lambda y : F(y)**2, 0.8, method='BFGS')
+                ystar = result.x[0]
+                if not result.success: raise RuntimeError("BFGS did nto converge.")
+            else: 
+                ystar = 0
 
         print(f"Found optimal Lagrange multiplier: {ystar}")
 
@@ -77,14 +80,6 @@ def simulate(data):
                 mask = np.append(mask, i)
                 count += 1
                 if count == K: break
-
-        # Check everything looks okay
-        print("mask:", mask)
-        expensives = 0
-        for m in mask: 
-            if m < 60: 
-                expensives += 1
-        print(f"Expensive Allocations: {expensives} (desired: 60)")
 
         # Allocate the next available fiber to each selected galaxy
         fiber = 0
@@ -108,7 +103,7 @@ def simulate(data):
     print(f"Sharp Utility: {u_sharp}")
 
 def main():
-    simulate(data=edge1)
+    simulate(data=power_law)
 
 if __name__ == "__main__":
     main()
