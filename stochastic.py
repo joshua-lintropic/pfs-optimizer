@@ -73,8 +73,11 @@ def simulate(data, preload=False):
 
     # Print attained sharp utility (all-or-nothing)
     plt.clf()
-    plt.hist(u_sharp, bins=10, alpha=0.5)
-    plt.savefig(f'{path}/hist.png')
+    plt.scatter(range(1, L+1), u_sharp)
+    plt.xlabel(f'exposure ({L} total)')
+    plt.ylabel('attained sharp utility')
+    plt.title('time series of attained sharp utility for each exposure')
+    plt.savefig(f'{path}/sharp.png')
 
 def main():
     simulate(data=getattr(tests, sys.argv[1]), preload=False)
