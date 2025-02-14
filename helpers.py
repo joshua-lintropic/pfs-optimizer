@@ -89,7 +89,7 @@ def bracket(f, initial=0.0, step=1.0, max_iter=10000):
         for direction in [+1, -1]:
             x_candidate = initial + direction * i * step
             try:
-                f_val = f(x_candidate).real
+                f_val = f(x_candidate)
             except Exception:
                 # If evaluation fails at this point, skip it.
                 continue
@@ -106,7 +106,7 @@ def bracket(f, initial=0.0, step=1.0, max_iter=10000):
         for direction in [+1, -1]:
             x_candidate = initial + direction * expo_step
             try:
-                f_val = f(x_candidate).real
+                f_val = f(x_candidate)
             except Exception:
                 continue
             if f_val > 0 and pos_candidate is None:
@@ -126,7 +126,6 @@ def dualize(res):
         ystar, result = sp.optimize.brentq(res, neg_t[0], pos_t[0], full_output=True)
         if not result.converged:
             raise RuntimeError(f'Brentq did not converge.')
-        ystar = ystar.real
     except ValueError:
         result = sp.optimize.minimize(lambda y : res(y)**2, 0.8, method='BFGS')
         ystar = result.x[0]

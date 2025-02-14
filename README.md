@@ -28,7 +28,7 @@ Naturally if `t.npy` and `obs.npy` are modified and then reloaded into the progr
 ## Viewing Outputs
 The primary text-based description of a run of the optimizer may be found in `log.txt`. Test cases designed to evaluate performance of the optimizer also come with `desc.txt` describing their purpose. 
 
-Graphical files denoted `uhistxx.png` and `thistxx.png` are histograms of the maximum utility and target time for selected galaxies as the optimizer progresses, respectively. Note that if preloading occurs, *the optimizer will overwrite old images with new ones* to establish the progression of the histograms over time. 
+Graphical files denoted `uhistxx.png` and `thistxx.png` are histograms of the maximum utility and target time for selected galaxies as the optimizer progresses, respectively. Note that if preloading occurs, **the optimizer will overwrite old images with new ones** to establish the progression of the histograms over time. 
 
 Finally, `sharp.png` is a time series plot of the attained sharp utility over time. (The sharp utility is defined as only being attained when the entire target time for a galaxy is reached. It is all-or-nothing.)
 

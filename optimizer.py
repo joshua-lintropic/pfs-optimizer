@@ -39,12 +39,12 @@ def optimize(data, start, stop, postgraph=True):
         t = np.zeros((N, L))
         obs = np.zeros((L, K))
         log = open(f'{path}/log.txt', 'w')
-        df = pd.DataFrame(columns=['exposure']+[f'o{k}' for k in range(K)])
+        df = pd.DataFrame(columns=['exposure']+[f'galaxy {k}' for k in range(K)])
     else: 
         t = np.load(f'{path}/t.npy')
         obs = np.load(f'{path}/obs.npy')
         log = open(f'{path}/log.txt', 'a')
-        df = pd.read_csv('{path}/mask.csv')
+        df = pd.read_csv(f'{path}/mask.csv')
     u_sharp = np.zeros((L,))
 
     # exposures are internally 0-indexed, but user-facing (graphs, input) are 1-indexed.
@@ -74,8 +74,8 @@ def optimize(data, start, stop, postgraph=True):
         # determine the galaxies to observe
         if S == 1: mask = consume(u_max, R, K)
         else: mask = allocate(ystar, R, C, S, N, K)
-        print(mask)
         for i in mask: t[i, l] = 1
+        df.loc[len(df)] = [l] + mask
 
         # determine attained sharp utility
         for i in range(N):
@@ -96,14 +96,14 @@ def optimize(data, start, stop, postgraph=True):
         # save the progress
         np.save(f'{path}/t.npy', t)
         np.save(f'{path}/obs.npy', obs)
+        df.to_csv(f'{path}/mask.csv', index=False)
 
         log.write('\n')
 
     # plot max utility histograms
     graph = obs.astype(int).tolist()
     ubins = np.linspace(start=0, stop=np.max(u_max), num=20)
-    if stop == L and postgraph: start = 1
-    for l in range(start-1, stop):
+    for l in range(stop):
         plt.xlabel('Maximum Utility')
         plt.ylabel(f'Frequency ({K} fibers available)')
         plt.title(f'Maximum Utilities of Galaxies Observed (Exposure {l+1})')
