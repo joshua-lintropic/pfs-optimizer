@@ -6,7 +6,7 @@ import sys
 import tester
 from helpers import *
 
-def simulate(data, start, stop, postgraph=True):
+def optimize(data, start, stop, postgraph=True):
     """
     Runs the stochastic model to plan allocations of the Subaru Prime Focus Spectrograph.
 
@@ -38,6 +38,7 @@ def simulate(data, start, stop, postgraph=True):
         t = np.zeros((N, L))
         obs = np.zeros((L, K))
         log = open(f'{path}/log.txt', 'w')
+        # TODO: write mask to CSV
     else: 
         t = np.load(f'{path}/t.npy')
         obs = np.load(f'{path}/obs.npy')
@@ -64,8 +65,9 @@ def simulate(data, start, stop, postgraph=True):
 
         # bracket the residual function to find optimal Lagrange multiplier
         if S != 1: 
-            ystar = dualize(res)
+            ystar = dualize(res) # TODO: cast to real
             log.write(f' -> lagrange multiplier: {ystar}\n')
+            log.write(f' -> residual (sum constraint): {res(ystar)}\n')
 
         # determine the galaxies to observe
         if S == 1: mask = consume(u_max, R, K)
@@ -148,7 +150,7 @@ def main():
         print(f'Usage: python3 {sys.argv[0]} testname start stop')
         print(f'       (start and stop are optional.)')
         sys.exit(0)
-    simulate(data=data, start=start, stop=stop, postgraph=True)
+    optimize(data=data, start=start, stop=stop, postgraph=True)
 
 if __name__ == '__main__':
     main()

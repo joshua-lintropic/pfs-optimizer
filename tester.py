@@ -1,5 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
+import sys
 np.random.seed(0)
 
 def edge1():
@@ -48,14 +49,16 @@ def power_law():
     return N, K, L, T_exp, u_max, T_target, path
 
 if __name__ == '__main__':
-    # _, _, _, _, u_max, T_target = edge1()
-    # print(u_max[:61])
-    # print(T_target[:61])
-    # print(T_target.shape)
+    # TODO: figure out how to convert from sysargv to func name
+    N, _, _, _, u_max, T_target, path = power_law()
+    plt.xlabel('Maximum Utility')
+    plt.ylabel(f'Frequency ({N} Galaxies Total)')
+    plt.hist(u_max, alpha=0.5)
+    plt.savefig('{path}/hist_umax.png')
 
-    _, _, _, _, u_max, T_target = power_law()
-    plt.hist(u_max, bins=10, alpha=0.5, label=r'$u_{\max}$')
-    plt.savefig('power_umax.png')
     plt.clf()
-    plt.hist(T_target, bins=10, alpha=0.5, label=r'$T_{\text{target}}$')
-    plt.savefig('power_targets.png')
+    plt.xlabel('Target Time')
+    plt.ylabel(f'Frequency ({N} Galaxies Total)')
+    plt.hist(T_target, alpha=0.5)
+    plt.savefig('{path}/hist_target.png')
+
