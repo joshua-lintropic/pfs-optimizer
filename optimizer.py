@@ -1,6 +1,7 @@
 import numpy as np
 import scipy as sp
 import matplotlib.pyplot as plt
+import pandas as pd
 import sys
 
 import tester
@@ -38,11 +39,12 @@ def optimize(data, start, stop, postgraph=True):
         t = np.zeros((N, L))
         obs = np.zeros((L, K))
         log = open(f'{path}/log.txt', 'w')
-        # TODO: write mask to CSV
+        df = pd.DataFrame(columns=['exposure']+[f'o{k}' for k in range(K)])
     else: 
         t = np.load(f'{path}/t.npy')
         obs = np.load(f'{path}/obs.npy')
         log = open(f'{path}/log.txt', 'a')
+        df = pd.read_csv('{path}/mask.csv')
     u_sharp = np.zeros((L,))
 
     # exposures are internally 0-indexed, but user-facing (graphs, input) are 1-indexed.
@@ -65,14 +67,14 @@ def optimize(data, start, stop, postgraph=True):
 
         # bracket the residual function to find optimal Lagrange multiplier
         if S != 1: 
-            ystar = dualize(res) # TODO: cast to real
+            ystar = dualize(res).real
             log.write(f' -> lagrange multiplier: {ystar}\n')
             log.write(f' -> residual (sum constraint): {res(ystar)}\n')
 
         # determine the galaxies to observe
         if S == 1: mask = consume(u_max, R, K)
         else: mask = allocate(ystar, R, C, S, N, K)
-        mask = sorted([x.item() for x in mask]) # TODO: find a better way to cast
+        print(mask)
         for i in mask: t[i, l] = 1
 
         # determine attained sharp utility
@@ -98,10 +100,7 @@ def optimize(data, start, stop, postgraph=True):
         log.write('\n')
 
     # plot max utility histograms
-    graph = [[0] * K for _ in range(L)]
-    for l in range(L):
-        for k in range(K):
-            graph[l][k] = int(obs[l, k].item()) # TODO: find a better way to cast
+    graph = obs.astype(int).tolist()
     ubins = np.linspace(start=0, stop=np.max(u_max), num=20)
     if stop == L and postgraph: start = 1
     for l in range(start-1, stop):
