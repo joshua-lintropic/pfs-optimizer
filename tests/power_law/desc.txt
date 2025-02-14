@@ -1,0 +1,1 @@
+Samples u_max from a Pareto distribution. Sets T_target proportionally with Gaussian noise factor. 

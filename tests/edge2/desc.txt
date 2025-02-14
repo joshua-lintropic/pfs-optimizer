@@ -1,0 +1,15 @@
+Runs optimizer on N1=120 expensive targets (u=10, T=10) and N2=2000 cheap targets (u=1, T=0.5). 
+There are K=100 fibers and L=25 exposures, for a total 2500 exposures.
+
+Optimal behavior: allocate to all expensive targets (N1*T=1200 exposures). Utility = 120*10 = 1200.
+Then allocate remaining 1300 exposures to 1300 cheap targets. Utility = 1300 * 0.5 = 650.
+Theoretical optimality: utility = 1200 + 650 = 1850. 
+
+Desirable behavior: allocate expensive targets early on. `sharp.png` should not spike during the
+final exposures unless absolutely necessary. 
+
+Results: optimizer possesses both qualities. 
+
+Notes: the optimizer doesn't complete 100 expensive targets within 10 exposures. Rather, it completes
+a few during 10th exposure, but mainly waits until 12th exposure to complete all at once. 
+- Could be because these targets are identical, but then it should still stick with the ones it started.
