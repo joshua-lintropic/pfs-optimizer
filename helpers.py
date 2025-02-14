@@ -147,7 +147,7 @@ def allocate(ystar, R, C, S, N, K):
         K     : The number of available fibers. 
 
     Returns:
-        A numpy array of K galaxies to observe.
+        An ndarray of shape (K,) with galaxies to observe.
     """
 
     allocations = [probablize(i, ystar, R[i], C[i], S) for i in range(N)]
@@ -166,7 +166,7 @@ def consume(u_max, R, K):
         K     : The number of available fibers. 
 
     Returns:
-        A numpy array of K galaxies to observe. 
+        An ndarray of shape (K,) with galaxies to observe. 
     """
 
     alive = np.where(R == 1)[0]
