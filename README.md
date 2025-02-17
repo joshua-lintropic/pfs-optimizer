@@ -81,7 +81,7 @@ One can think of several ways of determining "better" $\theta_{il}$:
 The primary impetus behind this optimizer is to parallelize the problem to find better $\theta$. In particular, instead of looking at 
 $$
 \begin{aligned}
-\text{minimize} \quad & -\sum_{i=1}^{N} \hat{u}_{i} {L - l \choose R_{i}} \theta_{i}^{R_{i}}(1 - \theta_{i})^{L - l - R_{i}} \\
+\text{minimize} \quad & -\sum_{i=1}^{N} \hat{u}_{i} {L - l +1\choose R_{i}} \theta_{i}^{R_{i}}(1 - \theta_{i})^{L - l +1 - R_{i}} \\
 \text{subject to} \quad & 0 \leq \theta_{i} \leq 1 \\
 \quad & \sum_{i=1}^{N} \theta_{i} = K
 \end{aligned}
@@ -89,7 +89,7 @@ $$
 
 which for the Subaru PFS is an $N=10,000$-dimensional nonconvex (but smooth) optimization across $K=2400$ fibers, instead we first formulate the Lagrangian
 $$
-L(\theta_{i}, \lambda) = -\sum_{i=1}^{N} \hat{u}_{i} {L - l \choose R_{i}} \theta_{i}^{R_{i}}(1 - \theta_{i})^{L - l - R_{i}} + \lambda \left( \sum_{i=1}^{N} \theta_{i} - K \right) 
+L(\theta_{i}, \lambda) = -\sum_{i=1}^{N} \hat{u}_{i} {L - l + 1\choose R_{i}} \theta_{i}^{R_{i}}(1 - \theta_{i})^{L - l +1 - R_{i}} + \lambda \left( \sum_{i=1}^{N} \theta_{i} - K \right) 
 $$
 
 Then we solve the problem 

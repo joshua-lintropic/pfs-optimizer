@@ -10,6 +10,7 @@ def probablize(i, y, R_i, C_i, S):
         y   : The Lagrange multiplier on the sum constraint.
         R_i : The number of remaining exposures to reach i's target time. 
         C_i : The binomial coefficient associated with the expansion.
+        S   : The number of remaining exposures possible. 
 
     Returns:
         A float which is the optimal Lagrange multiplier on the sum constraint.
@@ -22,6 +23,9 @@ def probablize(i, y, R_i, C_i, S):
         return 0
     if R_i == S:
         obj = lambda x : -C_i * x**S + y*x
+        if y < 0: raise ValueError('y')
+        if C_i < 0: raise ValueError('C')
+        if S < 0: raise ValueError('S')
         args = np.array([0, 1, (y/C_i/S)**(1/(S-1))])
         return args[np.argmin(obj(args))]
     if R_i > S: 
@@ -38,8 +42,10 @@ def probablize(i, y, R_i, C_i, S):
         a[k + R_i - 1] += C_i * (-1)**(k-1) * (S * comb1 + R_i * comb2)
 
     # Find the minimizer
+    tol = 1e-3
     endpoints = np.array([0, 1])
     roots = np.polynomial.polynomial.polyroots(a)
+    reals = roots[np.abs(roots.imag) < tol].real
     args = np.concatenate([endpoints, roots[(0 <= roots) & (roots <= 1)]])
     obj = lambda x : - C_i * x**R_i * (1 - x)**(S - R_i) + y * x
 
