@@ -165,13 +165,35 @@ $$
 
 reduces to testing $\theta\in\{0, 1, \sqrt[S-1]{\lambda/CS}\}$ from first-order conditions.
 
+## Generalizing to Multiple Classes
+The original algorithm makes the simplifying assumption that there are simply $N$ individual objects, each with distinct utilities. However, the more realistic scenario is: there are $N$ individual objects partitioned into $C$ classes. Each class $c \subseteq \mathcal{P}([N])$ (where $\mathcal{P}$ denotes power set) has associated utility $u_{c}$ and a required number of targets $X_{c}$. Our original problem `P1` is
+$$
+\begin{align}
+\text{maximize} &\sum_{i=1}^N u_{il} = \sum_i \hat u_i\, \text{Pr}(\sum_{k,l'} t_{ikl'} = \hat T_i\mid \theta_{il})\\
+\text{subject\ to}\ &\sum_{i} \theta_{il} = K\\
+&\forall i: 0\leq\theta_{il}\leq 1 \\
+\end{align}
+$$
+But in order to satisfy class constraints, we cannot simply look at per-exposure optimization anymore. Rather, #todo 
+
 # Comparison to Other Optimizers
 ## Comparative Advantages
-Because of the high-dimensional nature of the problem, methods such as differential evolution (and other genetic algorithms), simulated annealing, etc. are too costly in terms of runtime by several orders of magnitude. On the contrary, the parallelized nature of this problem makes it extremely computationally efficient, as it reduces to solving a large number of one-dimensional polynomial optimizations. 
+**vs. General Nonconvex Methods.** Because of the high-dimensional nature of the problem, methods such as differential evolution (and other genetic algorithms), simulated annealing, etc. are too costly in terms of runtime by several orders of magnitude. On the contrary, the parallelized nature of this problem makes it extremely computationally efficient, as it reduces to solving a large number of one-dimensional polynomial optimizations. 
 
-One of the most desirable characteristics of this optimizer is that it has the capability to make next-exposure decisions, while still planning ahead for long-term optimality. This property makes it robust to external disruptions, such as weather or equipment interference, which prevents may prevent Subaru PFS from actually making all of the suggested observations recommended by the optimizer. 
+**vs. Greedy Optimizers.** A greedy optimizer such as 
+```
+if 0 < R[i] <= L - l // time needed to copmlete target i
+	score[i] = u_max[i] / R[i]
+else
+	score[i] = 0
+sort reversed [0...N] off key=score
+return first K elements
+```
+fails to plan ahead successfully, leading to many "wasted" opportunities, i.e. the optimizer runs out of viable targets and is forced to allocate to "already finished" targets. 
 
-An additional desirable trait is the emphasis on high-utility, long-timeframe targets first, which is a policy this program empirically follows. This adds additional robustness to disruption as it gives the PFS more chances to observe vulnerable high-value targets. 
+**Robustness.** One of the most desirable characteristics of this optimizer is that it has the capability to make next-exposure decisions, while still planning ahead for long-term optimality. This property makes it robust to external disruptions, such as weather or equipment interference, which prevents may prevent Subaru PFS from actually making all of the suggested observations recommended by the optimizer. 
+
+An additional desirable trait is the emphasis on high-utility, long-timeframe targets first, which is a policy this program empirically follows. This adds additional robustness to disruption as it gives the PFS more chances to observe vulnerable high-value targets.
 
 ## Potential Drawbacks
 Because of the bracketing involved in finding an optimal Lagrange multiplier at each exposure, in some rare occasions the optimizer will be forced to evaluate $\sqrt[S-1]{\lambda/CS}$ for $\lambda<0$. The result is a complex value whose imaginary part the optimizer is forced to discard. Since this arises if and only if $R=S>1$ ($R$ is the number of necessary exposures for a galaxy, $S$ is the remaining exposures left in the program) it is limited in scope and empirically does not affect the optimizer's success, even when it does occur. However, a more robust treatment could potentially help in some limiting cases where this phenomenon could make a difference. 
