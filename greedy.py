@@ -38,6 +38,7 @@ def optimize(data, start, stop, postgraph=True):
     # track exposures-to-date
     t = np.zeros((N, L))
     u_sharp = np.zeros((L,))
+    waste = np.zeros((N,))
 
     # exposures are internally 0-indexed, but user-facing (graphs, input) are 1-indexed.
     for l in range(start-1, stop):
@@ -53,8 +54,9 @@ def optimize(data, start, stop, postgraph=True):
 
         # choose the highest utility-per-time ratio
         def score(i):
+            alpha = (l+1) / L
             if R[i] == 0 or R[i] > S: return 0
-            return u_max[i] / R[i]
+            return (u_max[i] / R[i]) * (T_target[i] / sum(T_target))**(np.arcsin(1 - alpha))
         mask = sorted(list(range(N)), key=score, reverse=True)[:K]
         for i in mask: t[i, l] = 1
 
@@ -64,10 +66,17 @@ def optimize(data, start, stop, postgraph=True):
             if invested == T_target[i]:
                 u_sharp[l] += u_max[i]
             elif invested > T_target[i]:
-                print(f'Warning, wasted on {i}: needed {T_target[i]}, used {invested}\n')
+                # print(f'Warning, wasted on {i}: needed {T_target[i]}, used {invested}\n')
+                pass
 
         print(f'Sharp Utility: {u_sharp[-1]}')
         print()
+
+    # print waste
+    for i in range(N):
+        invested = np.sum(t[i, :])
+        waste[i] += max(invested - T_target[i], 0)
+    print(f'Total Waste: {np.sum(waste)}')
 
     # graph attained sharp utility (all-or-nothing)
     plt.scatter(range(1, L+1), u_sharp, color='g')

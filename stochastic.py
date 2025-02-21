@@ -50,6 +50,7 @@ def optimize(data, start, stop, postgraph=True):
     # exposures are internally 0-indexed, but user-facing (graphs, input) are 1-indexed.
     for l in range(start-1, stop):
         log.write(f'=== EXPOSURE {l+1}: PROCESSING ===\n')
+        print(f'=== EXPOSURE {l+1}: PROCESSING ===')
 
         # determine remaining exposures necessary for each galaxy 
         if l == 0: T_past = np.array([0 for i in range(N)])
@@ -67,9 +68,12 @@ def optimize(data, start, stop, postgraph=True):
 
         # bracket the residual function to find optimal Lagrange multiplier
         if S != 1: 
+            print('Dualizing...')
             ystar = dualize(res).real
             log.write(f' -> lagrange multiplier: {ystar}\n')
             log.write(f' -> residual (sum constraint): {res(ystar)}\n')
+            print(f' -> lagrange multiplier: {ystar}')
+            print(f' -> residual (sum constraint): {res(ystar)}')
 
         # determine the galaxies to observe
         if S == 1: mask = consume(u_max, R, K)
@@ -92,6 +96,7 @@ def optimize(data, start, stop, postgraph=True):
         # log.write(f' -> expensive targets: {count} / {K}\n')
         log.write(f' -> galaxies observed: {mask}\n')
         log.write(f' -> sharp utility: {u_sharp[l]}\n')
+        print(f' -> sharp utility: {u_sharp[l]}')
 
         # save the progress
         np.save(f'{path}/t.npy', t)
@@ -109,7 +114,8 @@ def optimize(data, start, stop, postgraph=True):
         plt.title(f'Maximum Utilities of Galaxies Observed (Exposure {l+1})')
         plt.hist(u_max[graph[l]], bins=ubins, label=f'Exposure {l+1}')
         plt.legend()
-        plt.savefig(f'{path}/uhist{l+1}.png')
+        if l + 1 < 10: plt.savefig(f'{path}/uhist0{l+1}.png')
+        else: plt.savefig(f'{path}/uhist{l+1}.png')
 
     # plot target time histograms
     plt.clf()
@@ -120,7 +126,8 @@ def optimize(data, start, stop, postgraph=True):
         plt.title(f'Target Times of Galaxies Observed (Exposure {l+1})')
         plt.hist(T_target[graph[l]], bins=tbins, label=f'Exposure {l+1}')
         plt.legend()
-        plt.savefig(f'{path}/thist{l+1}.png')
+        if l + 1 < 10: plt.savefig(f'{path}/thist0{l+1}.png')
+        else: plt.savefig(f'{path}/thist{l+1}.png')
 
     # graph attained sharp utility (all-or-nothing)
     plt.clf()

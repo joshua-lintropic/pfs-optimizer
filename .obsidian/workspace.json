@@ -4,21 +4,17 @@
     "type": "split",
     "children": [
       {
-        "id": "931d373655025f09",
+        "id": "acaad09f16cbe11e",
         "type": "tabs",
         "children": [
           {
-            "id": "0c5c40a866fdfabc",
+            "id": "0b7162d80517cbcf",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "README.md",
-                "mode": "source",
-                "source": false
-              },
+              "type": "empty",
+              "state": {},
               "icon": "lucide-file",
-              "title": "README"
+              "title": "New tab"
             }
           }
         ]
@@ -142,13 +138,12 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "README.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of README"
+              "title": "Outline"
             }
           }
         ],
@@ -168,8 +163,18 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "0c5c40a866fdfabc",
+  "active": "0b7162d80517cbcf",
   "lastOpenFiles": [
+    "README.md",
+    "tests/power_law_long/mask.csv",
+    "tests/power_law_long/obs.npy",
+    "tests/power_law_long/t.npy",
+    "stochastic.py~",
+    "tests/power_law_long/log.txt",
+    "tests/power_law_long/hist_target.png",
+    "tests/power_law_long/hist_umax.png",
+    "tests/power_law_long",
+    "greedy.py~",
     "tests/power_law_big/hist_target.png",
     "tests/power_law_big/hist_umax.png",
     "tests/power_law_big/log.txt",
@@ -180,17 +185,7 @@
     "tests/power_law_small/uhist6.png",
     "tests/power_law_small/uhist5.png",
     "tests/power_law_small/uhist4.png",
-    "tests/power_law_small/uhist3.png",
-    "tests/power_law_small/uhist2.png",
-    "tests/power_law_small/uhist10.png",
     "tests/power_law_small/desc.txt",
-    "tests/power_law_small/t.npy",
-    "tests/power_law_small/obs.npy",
-    "tests/power_law_small/mask.csv",
-    "tests/power_law_small/log.txt",
-    "tests/power_law_small",
-    "greedy.py~",
-    "greedy.py",
     "Classes/MAT425/L02. Measurable Spaces.md",
     "Classes/MAT425/L05. The Complex Integral.md",
     "Classes/MAT425/Problem Set 1 (Responses).md",
