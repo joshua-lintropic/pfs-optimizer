@@ -165,7 +165,11 @@
   },
   "active": "0b7162d80517cbcf",
   "lastOpenFiles": [
+    "Problem Specification.md",
+    "problem_specification.md",
     "README.md",
+    "problem_specification.pdf",
+    "analysis.pdf",
     "tests/power_law_long/mask.csv",
     "tests/power_law_long/obs.npy",
     "tests/power_law_long/t.npy",
@@ -178,14 +182,12 @@
     "tests/power_law_big/hist_target.png",
     "tests/power_law_big/hist_umax.png",
     "tests/power_law_big/log.txt",
-    "tests/power_law_big",
     "tests/power_law_small/uhist9.png",
     "tests/power_law_small/uhist8.png",
     "tests/power_law_small/uhist7.png",
     "tests/power_law_small/uhist6.png",
     "tests/power_law_small/uhist5.png",
     "tests/power_law_small/uhist4.png",
-    "tests/power_law_small/desc.txt",
     "Classes/MAT425/L02. Measurable Spaces.md",
     "Classes/MAT425/L05. The Complex Integral.md",
     "Classes/MAT425/Problem Set 1 (Responses).md",
@@ -208,8 +210,6 @@
     "Classes/ORF522/notes/Branch and Bound Algorithms.md",
     "Classes/ORF522/notes/9. Subgradient.md",
     "Classes/ORF522/notes/8. Gradient Descent.md",
-    "Classes/ORF522/notes/7. Optimality Conditions.md",
-    "Classes/ORF522/notes/6. Convex Optimization.md",
-    "Classes/ORF522/notes/5. Duality Theory.md"
+    "Classes/ORF522/notes/7. Optimality Conditions.md"
   ]
 }
