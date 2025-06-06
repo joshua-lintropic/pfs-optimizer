@@ -32,4 +32,4 @@ Finally, `sharp.png` is a time series plot of the attained sharp utility over ti
 
 # Problem Specification
 
-See problem_specification.pdf for a description of the problem and an analysis of the approach that this optimizer takes.
+See `problem_specification.pdf` for a description of the problem and an analysis of the approach that this optimizer takes.
